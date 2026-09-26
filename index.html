@@ -1168,7 +1168,7 @@
 
     form.addEventListener(
       "submit",
-      function(event) {
+      async function(event) {
 
         event.preventDefault();
 
@@ -1269,7 +1269,7 @@
 
         guardarReserva(reserva);
 
-      enviarReservaASheetDB(reserva);
+      await enviarReservaASheetDB(reserva);
 
 
         /* MOSTRAR MODAL */
