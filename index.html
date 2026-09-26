@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LimpiaConecta</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #eef2f6;
+      color: #182230;
+    }
+
+    header {
+      background: #0A2342;
+      color: white;
+      padding: 18px 20px;
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    .logo span {
+      color: #D4A017;
+    }
+
+    .nav button {
+      background: transparent;
+      color: white;
+      border: 1px solid white;
+      padding: 9px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .hero {
+      background: #0A2342;
+      color: white;
+      padding: 60px 20px;
+    }
+
+    .hero-content {
+      max-width: 1100px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 45px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      color: #D4A017;
+    }
+
+    .hero p {
+      font-size: 18px;
+      max-width: 650px;
+      margin: auto;
+      color: #e5e7eb;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 50px 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .section-title h2 {
+      color: #0A2342;
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .section-title p {
+      color: #667085;
+    }
+
+    .booking {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.10);
+    }
+
+    .step {
+      margin-bottom: 30px;
+    }
+
+    .step-title {
+      color: #0A2342;
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+
+    .plans {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .plan input {
+      display: none;
+    }
+
+    .plan label {
+      display: block;
+      padding: 20px 10px;
+      text-align: center;
+      border: 2px solid #e1e5ea;
+      border-radius: 14px;
+      cursor: pointer;
+    }
+
+    .plan input:checked + label {
+      border-color: #D4A017;
+      background: #fffaf0;
+    }
+
+    .plan-name {
+      font-weight: bold;
+      color: #0A2342;
+      margin-bottom: 8px;
+    }
+
+    .plan-price {
+      color: #D4A017;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .field {
+      margin-bottom: 17px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: bold;
+      color: #344054;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="date"],
+    input[type="time"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #d0d5dd;
+      border-radius: 10px;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .extras {
+      display: grid;
+      gap: 10px;
+    }
+
+    .extra {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 13px;
+      border: 1px solid #e1e5ea;
+      border-radius: 10px;
+    }
+
+    .extra-left {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .extra-price {
+      color: #D4A017;
+      font-weight: bold;
+    }
+
+    .summary {
+      background: #0A2342;
+      color: white;
+      padding: 22px;
+      border-radius: 15px;
+      margin-top: 25px;
+    }
+
+    .summary h3 {
+      margin-bottom: 15px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(255,255,255,.2);
+      gap: 15px;
+    }
+
+    .total {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(255,255,255,.3);
+      font-size: 23px;
+      font-weight: bold;
+    }
+
+    .submit-button {
+      width: 100%;
+      margin-top: 25px;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      background: #D4A017;
+      color: #0A2342;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .submit-button:hover {
+      opacity: .9;
+    }
+
+    .security {
+      text-align: center;
+      margin-top: 15px;
+      color: #667085;
+      font-size: 13px;
+    }
+
+    footer {
+      background: #0A2342;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    footer strong {
+      color: #D4A017;
+    }
+
+    footer p {
+      margin-top: 8px;
+      font-size: 13px;
+      color: #d0d5dd;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.65);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 999;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-box {
+      background: white;
+      max-width: 500px;
+      width: 100%;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+    }
+
+    .success {
+      font-size: 50px;
+      color: #18864B;
+      margin-bottom: 10px;
+    }
+
+    .modal-box h2 {
+      color: #0A2342;
+      margin-bottom: 10px;
+    }
+
+    .code {
+      background: #F5F1EB;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 10px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #0A2342;
+    }
+
+    .modal-details {
+      background: #f7f8fa;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .modal-details p {
+      margin-bottom: 7px;
+      font-size: 14px;
+    }
+
+    .close-button {
+      width: 100%;
+      padding: 13px;
+      background: #0A2342;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 700px) {
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .plans {
+        grid-template-columns: 1fr;
+      }
+
+      .booking {
+        padding: 20px;
+      }
+
+      .summary-row,
+      .total {
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ENCABEZADO -->
+
+  <header>
+
+    <div class="nav">
+
+      <div class="logo">
+        Limpia<span>Conecta</span>
+      </div>
+
+      <button onclick="irReserva()">
+        Reservar
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- PRESENTACIÓN -->
+
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <h1>
+        Limpieza para tu hogar,
+        <span>sin complicaciones.</span>
+      </h1>
+
+      <p>
+        Reserva servicios de limpieza de forma sencilla,
+        segura y organizada.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- RESERVA -->
+
+  <main class="container">
+
+    <div class="section-title">
+
+      <h2 id="reserva">
+        Reserva tu servicio
+      </h2>
+
+      <p>
+        Completa los datos para solicitar tu servicio.
+      </p>
+
+    </div>
+
+
+    <form
+      class="booking"
+      id="bookingForm"
+    >
+
+
+      <!-- PLAN -->
+
+      <div class="step">
+
+        <h3 class="step-title">
+          1. Elige el tiempo del servicio
+        </h3>
+
+        <div class="plans">
+
+
+          <div class="plan">
+
+            <input
+              type="radio"
+              id="plan4"
+              name="plan"
+              value="4"
+              data-price="75000"
+              data-name="4 horas"
+              checked
+            >
+
+            <label for="plan4">
+
+              <div class="plan-name">
+                4 horas
+              </div>
+
+              <div class="plan-price">
+                $75.000
+              </div>
+
+            </label>
+
+          </div>
+
+
+          <div class="plan">
+
+            <input
+              type="radio"
+              id="plan6"
+              name="plan"
+              value="6"
+              data-price="105000"
+              data-name="6 horas"
+            >
+
+            <label for="plan6">
+
+              <div class="plan-name">
+                6 horas
+              </div>
+
+              <div class="plan-price">
+                $105.000
+              </div>
+
+            </label>
+
+          </div>
+
+
+          <div class="plan">
+
+            <input
+              type="radio"
+              id="plan8"
+              name="plan"
+              value="8"
+              data-price="135000"
+              data-name="8 horas"
+            >
+
+            <label for="plan8">
+
+              <div class="plan-name">
+                8 horas
+              </div>
+
+              <div class="plan-price">
+                $135.000
+              </div>
+
+            </label>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ZONA -->
+
+      <div class="step">
+
+        <h3 class="step-title">
+          2. Selecciona tu zona
+        </h3>
+
+        <div class="field">
+
+          <label for="zona">
+            Zona
+          </label>
+
+          <select
+            id="zona"
+            required
+          >
+
+            <option value="">
+              Selecciona una zona
+            </option>
+
+            <option value="Suba">
+              Suba
+            </option>
+
+            <option value="Engativá">
+              Engativá
+            </option>
+
+            <option value="Barrios Unidos">
+              Barrios Unidos
+            </option>
+
+            <option value="Zona Norte">
+              Zona Norte
+            </option>
+
+            <option value="Chapinero">
+              Chapinero
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <!-- FECHA -->
+
+      <div class="step">
+
+        <h3 class="step-title">
+          3. Fecha y hora
+        </h3>
+
+        <div class="field">
+
+          <label for="fecha">
+            Fecha
+          </label>
+
+          <input
+            type="date"
+            id="fecha"
+            required
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="hora">
+            Hora de inicio
+          </label>
+
+          <input
+            type="time"
+            id="hora"
+            required
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- CLIENTE -->
+
+      <div class="step">
+
+        <h3 class="step-title">
+          4. Datos del cliente
+        </h3>
+
+
+        <div class="field">
+
+          <label for="nombre">
+            Nombre completo
+          </label>
+
+          <input
+            type="text"
+            id="nombre"
+            placeholder="Nombre completo"
+            required
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="telefono">
+            Número de celular
+          </label>
+
+          <input
+            type="tel"
+            id="telefono"
+            placeholder="3001234567"
+            required
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="direccion">
+            Dirección exacta
+          </label>
+
+          <input
+            type="text"
+            id="direccion"
+            placeholder="Calle, carrera, número, apartamento..."
+            required
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="observaciones">
+            Observaciones
+          </label>
+
+          <textarea
+            id="observaciones"
+            placeholder="Información adicional para el servicio..."
+          ></textarea>
+
+        </div>
+
+      </div>
+
+
+      <!-- ADICIONALES -->
+
+      <div class="step">
+
+        <h3 class="step-title">
+          5. Servicios adicionales
+        </h3>
+
+
+        <div class="extras">
+
+
+          <div class="extra">
+
+            <div class="extra-left">
+
+              <input
+                type="checkbox"
+                id="profunda"
+                value="15000"
+                data-name="Limpieza profunda"
+              >
+
+              <label for="profunda">
+                Limpieza profunda
+              </label>
+
+            </div>
+
+            <span class="extra-price">
+              +$15.000
+            </span>
+
+          </div>
+
+
+          <div class="extra">
+
+            <div class="extra-left">
+
+              <input
+                type="checkbox"
+                id="cocina"
+                value="10000"
+                data-name="Limpieza de cocina"
+              >
+
+              <label for="cocina">
+                Limpieza de cocina
+              </label>
+
+            </div>
+
+            <span class="extra-price">
+              +$10.000
+            </span>
+
+          </div>
+
+
+          <div class="extra">
+
+            <div class="extra-left">
+
+              <input
+                type="checkbox"
+                id="bano"
+                value="10000"
+                data-name="Limpieza de baño"
+              >
+
+              <label for="bano">
+                Limpieza de baño
+              </label>
+
+            </div>
+
+            <span class="extra-price">
+              +$10.000
+            </span>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+      <!-- RESUMEN -->
+
+      <div class="summary">
+
+        <h3>
+          Resumen de la reserva
+        </h3>
+
+
+        <div class="summary-row">
+
+          <span>
+            Plan
+          </span>
+
+          <strong id="summaryPlan">
+            4 horas
+          </strong>
+
+        </div>
+
+
+        <div class="summary-row">
+
+          <span>
+            Zona
+          </span>
+
+          <strong id="summaryZona">
+            Pendiente
+          </strong>
+
+        </div>
+
+
+        <div class="summary-row">
+
+          <span>
+            Adicionales
+          </span>
+
+          <strong id="summaryExtras">
+            Ninguno
+          </strong>
+
+        </div>
+
+
+        <div class="total">
+
+          <span>
+            Total
+          </span>
+
+          <span id="summaryTotal">
+            $75.000
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- BOTÓN FINAL -->
+
+      <button
+        type="submit"
+        class="submit-button"
+      >
+        Confirmar solicitud
+      </button>
+
+
+      <div class="security">
+        🔒 Tus datos serán utilizados para gestionar tu solicitud.
+      </div>
+
+    </form>
+
+  </main>
+
+
+  <!-- PIE DE PÁGINA -->
+
+  <footer>
+
+    <strong>
+      LimpiaConecta
+    </strong>
+
+    <p>
+      Servicios de limpieza para hogares.
+    </p>
+
+    <p>
+      Suba · Engativá · Barrios Unidos · Zona Norte · Chapinero
+    </p>
+
+  </footer>
+
+
+  <!-- VENTANA DE CONFIRMACIÓN -->
+
+  <div
+    class="modal"
+    id="successModal"
+  >
+
+    <div class="modal-box">
+
+      <div class="success">
+        ✓
+      </div>
+
+      <h2>
+        Solicitud recibida
+      </h2>
+
+      <p>
+        Tu solicitud fue registrada correctamente.
+      </p>
+
+
+      <div
+        class="code"
+        id="reservationCode"
+      >
+        LC-000000
+      </div>
+
+
+      <div
+        class="modal-details"
+        id="modalDetails"
+      ></div>
+
+
+      <button
+        class="close-button"
+        onclick="cerrarModal()"
+      >
+        Cerrar
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- JAVASCRIPT -->
+
+  <script>
+
+    const form =
+      document.getElementById("bookingForm");
+
+    const zona =
+      document.getElementById("zona");
+
+    const fecha =
+      document.getElementById("fecha");
+
+    const hora =
+      document.getElementById("hora");
+
+    const nombre =
+      document.getElementById("nombre");
+
+    const telefono =
+      document.getElementById("telefono");
+
+    const direccion =
+      document.getElementById("direccion");
+
+    const observaciones =
+      document.getElementById("observaciones");
+
+
+    const summaryPlan =
+      document.getElementById("summaryPlan");
+
+    const summaryZona =
+      document.getElementById("summaryZona");
+
+    const summaryExtras =
+      document.getElementById("summaryExtras");
+
+    const summaryTotal =
+      document.getElementById("summaryTotal");
+
+
+    const modal =
+      document.getElementById("successModal");
+
+    const reservationCode =
+      document.getElementById("reservationCode");
+
+    const modalDetails =
+      document.getElementById("modalDetails");
+
+
+    /* FECHA MÍNIMA */
+
+    const today =
+      new Date();
+
+    const year =
+      today.getFullYear();
+
+    const month =
+      String(today.getMonth() + 1).padStart(2, "0");
+
+    const day =
+      String(today.getDate()).padStart(2, "0");
+
+    fecha.min =
+      year + "-" + month + "-" + day;
+
+
+    /* FORMATO DE DINERO */
+
+    function formatoPesos(valor) {
+
+      return new Intl.NumberFormat(
+        "es-CO",
+        {
+          style: "currency",
+          currency: "COP",
+          maximumFractionDigits: 0
+        }
+      ).format(valor);
+
+    }
+
+
+    /* OBTENER PLAN */
+
+    function obtenerPlan() {
+
+      return document.querySelector(
+        'input[name="plan"]:checked'
+      );
+
+    }
+
+
+    /* ACTUALIZAR RESUMEN */
+
+    function actualizarResumen() {
+
+      const plan =
+        obtenerPlan();
+
+      if (!plan) {
+        return;
+      }
+
+
+      const precioBase =
+        Number(plan.dataset.price);
+
+
+      let adicionales = [];
+
+      let precioAdicional =
+        0;
+
+
+      document
+        .querySelectorAll(
+          '.extra input[type="checkbox"]:checked'
+        )
+        .forEach(function(item) {
+
+          adicionales.push(
+            item.dataset.name
+          );
+
+          precioAdicional +=
+            Number(item.value);
+
+        });
+
+
+      const total =
+        precioBase +
+        precioAdicional;
+
+
+      summaryPlan.textContent =
+        plan.dataset.name;
+
+
+      summaryZona.textContent =
+        zona.value || "Pendiente";
+
+
+      summaryExtras.textContent =
+        adicionales.length > 0
+          ? adicionales.join(", ")
+          : "Ninguno";
+
+
+      summaryTotal.textContent =
+        formatoPesos(total);
+
+    }
+
+
+    /* EVENTOS DE PLANES */
+
+    document
+      .querySelectorAll(
+        'input[name="plan"]'
+      )
+      .forEach(function(input) {
+
+        input.addEventListener(
+          "change",
+          actualizarResumen
+        );
+
+      });
+
+
+    /* EVENTOS DE ADICIONALES */
+
+    document
+      .querySelectorAll(
+        '.extra input'
+      )
+      .forEach(function(input) {
+
+        input.addEventListener(
+          "change",
+          actualizarResumen
+        );
+
+      });
+
+
+    zona.addEventListener(
+      "change",
+      actualizarResumen
+    );
+
+
+    /* GENERAR CÓDIGO */
+
+    function generarCodigo() {
+
+      const numero =
+        Math.floor(
+          100000 +
+          Math.random() * 900000
+        );
+
+      return "LC-" + numero;
+
+    }
+
+
+    /* GUARDAR RESERVA */
+
+    function guardarReserva(reserva) {
+
+      const anteriores =
+        JSON.parse(
+          localStorage.getItem(
+            "limpiaconecta_reservas"
+          ) || "[]"
+        );
+
+
+      anteriores.push(reserva);
+
+
+      localStorage.setItem(
+        "limpiaconecta_reservas",
+        JSON.stringify(anteriores)
+      );
+
+    }
+
+
+    /* ENVIAR RESERVA */
+
+    form.addEventListener(
+      "submit",
+      function(event) {
+
+        event.preventDefault();
+
+
+        if (!form.checkValidity()) {
+
+          form.reportValidity();
+
+          return;
+
+        }
+
+
+        const plan =
+          obtenerPlan();
+
+
+        const precioBase =
+          Number(plan.dataset.price);
+
+
+        let adicionales = [];
+
+        let precioAdicional =
+          0;
+
+
+        document
+          .querySelectorAll(
+            '.extra input:checked'
+          )
+          .forEach(function(item) {
+
+            adicionales.push(
+              item.dataset.name
+            );
+
+            precioAdicional +=
+              Number(item.value);
+
+          });
+
+
+        const total =
+          precioBase +
+          precioAdicional;
+
+
+        const codigo =
+          generarCodigo();
+
+
+        const reserva = {
+
+          codigo: codigo,
+
+          nombre:
+            nombre.value.trim(),
+
+          telefono:
+            telefono.value.trim(),
+
+          plan:
+            plan.dataset.name,
+
+          horas:
+            Number(plan.value),
+
+          zona:
+            zona.value,
+
+          fecha:
+            fecha.value,
+
+          hora:
+            hora.value,
+
+          direccion:
+            direccion.value.trim(),
+
+          adicionales:
+            adicionales,
+
+          total:
+            total,
+
+          observaciones:
+            observaciones.value.trim(),
+
+          estado:
+            "pendiente",
+
+          creado:
+            new Date().toISOString()
+
+        };
+
+
+        guardarReserva(reserva);
+
+
+        /* MOSTRAR MODAL */
+
+        reservationCode.textContent =
+          codigo;
+
+
+        modalDetails.innerHTML =
+
+          "<p><strong>Nombre:</strong> " +
+          escapeHTML(reserva.nombre) +
+          "</p>" +
+
+          "<p><strong>Servicio:</strong> " +
+          escapeHTML(reserva.plan) +
+          "</p>" +
+
+          "<p><strong>Zona:</strong> " +
+          escapeHTML(reserva.zona) +
+          "</p>" +
+
+          "<p><strong>Fecha:</strong> " +
+          escapeHTML(reserva.fecha) +
+          "</p>" +
+
+          "<p><strong>Hora:</strong> " +
+          escapeHTML(reserva.hora) +
+          "</p>" +
+
+          "<p><strong>Total:</strong> " +
+          formatoPesos(reserva.total) +
+          "</p>";
+
+
+        modal.classList.add(
+          "active"
+        );
+
+      }
+    );
+
+
+    /* PROTEGER TEXTO */
+
+    function escapeHTML(texto) {
+
+      const div =
+        document.createElement("div");
+
+      div.textContent =
+        texto;
+
+      return div.innerHTML;
+
+    }
+
+
+    /* CERRAR MODAL */
+
+    function cerrarModal() {
+
+      modal.classList.remove(
+        "active"
+      );
+
+    }
+
+
+    /* IR A RESERVA */
+
+    function irReserva() {
+
+      document
+        .getElementById("reserva")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+    }
+
+
+    /* ACTUALIZAR AL CARGAR */
+
+    actualizarResumen();
+
+  </script>
+
+</body>
+</html>
