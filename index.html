@@ -1269,6 +1269,8 @@
 
         guardarReserva(reserva);
 
+      enviarReservaASheetDB(reserva);
+
 
         /* MOSTRAR MODAL */
 
@@ -1350,11 +1352,40 @@
     }
 
 
-    /* ACTUALIZAR AL CARGAR */
+    /* CONEXIÓN CON SHEETDB */
 
-    actualizarResumen();
+const SHEETDB_URL = "https://sheetdb.io/api/v1/djp1y0b1hmes7";
 
-  </script>
+async function enviarReservaASheetDB(reserva) {
 
-</body>
-</html>
+  try {
+
+    await fetch(SHEETDB_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        data: {
+          Reserva: reserva.codigo || "",
+          Nombre: reserva.nombre || "",
+          Celular: reserva.telefono || "",
+          Dirección: reserva.direccion || "",
+          Zona: reserva.zona || "",
+          Fecha: reserva.fecha || "",
+          Hora: reserva.hora || "",
+          Servicio: reserva.plan || "",
+          Adicionales: reserva.adicionales || "",
+          Total: reserva.total || "",
+          Estado: "Pendiente"
+        }
+      })
+    });
+
+  } catch (error) {
+
+    console.error("Error enviando la reserva:", error);
+
+  }
+
+}
