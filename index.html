@@ -1360,7 +1360,7 @@ async function enviarReservaASheetDB(reserva) {
 
   try {
 
-    await fetch(SHEETDB_URL, {
+    const respuesta = await fetch(SHEETDB_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -1375,16 +1375,29 @@ async function enviarReservaASheetDB(reserva) {
           Fecha: reserva.fecha || "",
           Hora: reserva.hora || "",
           Servicio: reserva.plan || "",
-          Adicionales: reserva.adicionales || "",
+          Adicionales: Array.isArray(reserva.adicionales)
+            ? reserva.adicionales.join(", ")
+            : reserva.adicionales || "",
           Total: reserva.total || "",
           Estado: "Pendiente"
         }
       })
     });
 
+    const resultado = await respuesta.text();
+
+    console.log(
+      "Respuesta de SheetDB:",
+      respuesta.status,
+      resultado
+    );
+
   } catch (error) {
 
-    console.error("Error enviando la reserva:", error);
+    console.error(
+      "Error enviando la reserva:",
+      error
+    );
 
   }
 
